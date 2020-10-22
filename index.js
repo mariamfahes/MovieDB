@@ -90,7 +90,7 @@ app.get('/movies/read/by-title', function (req, res){
 
 
 app.get('/movies/add', function (req,res){
-
+app.post('/movies/create',function(req,res){
     var t = req.query.title
     var y = req.query.year
     var r = req.query.rating
@@ -108,6 +108,7 @@ app.get('/movies/add', function (req,res){
 //delete
 
 app.get('/movies/delete/:ID',(req,res) => {
+app.delete('/movies/delete/:id',function(req,res){
     var d = req.params.ID
     if (d > 0 && d < movies.length ) {
         movies.splice(d-1, 1)
@@ -121,6 +122,7 @@ app.get('/movies/delete/:ID',(req,res) => {
     //update
     
     app.get('/movies/update/:ID',(req,res) => {
+    app.put('/movies/update/:id',function(req,res){
         let c = req.params.ID
         let x = req.query.title
         let y = req.query.year
