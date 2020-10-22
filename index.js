@@ -48,18 +48,6 @@ app.get('/movies/read',function(req,res){
 
 });
 
-app.get('/movies/create',function(req,res){
-    res.send("cr")
-
-});
-
-app.get('/movies/update',function(req,res){
-res.send("up")
-});
-app.get('/movies/delete',function(req,res){
-res.send("del")
-});
-
 app.get('/', (req, res) => {
   res.send('ok')
 });
@@ -98,4 +86,59 @@ app.get('/movies/read/by-title', function (req, res){
 
   });
 
+// add
 
+
+app.get('/movies/add', function (req,res){
+
+    var t = req.query.title
+    var y = req.query.year
+    var r = req.query.rating
+    if(t == undefined || y == undefined || y.length > 4 || isNaN(y)) {
+        res.send({status:403, error:true, message:'you cannot create a movie without providing a title and a year'})
+    }
+    if (r == "") {
+        r = 4                                                   
+    }
+    
+    movies.push({title: t, year: y, rating: r})
+        res.send({status:200, data:movies}) 
+    
+});
+//delete
+
+app.get('/movies/delete/:ID',(req,res) => {
+    var d = req.params.ID
+    if (d > 0 && d < movies.length ) {
+        movies.splice(d-1, 1)
+        res.send({status:200, message: movies})
+    }
+    else {
+        res.send({status:404, error:true, message:'the movie <ID> does not exist'})
+    }
+    });   
+    
+    //update
+    
+    app.get('/movies/update/:ID',(req,res) => {
+        let c = req.params.ID
+        let x = req.query.title
+        let y = req.query.year
+        let z = req.query.rating
+    
+        function update(a, b) {
+            if(a != undefined || a == "") {
+                movies[c-1][b] = a
+            }
+        }
+    
+        if(c > 0 && c < movies.length ) {
+            update(x, 'title')
+            update(y, 'year')
+            update(z, 'rating')
+            res.send({status:200, message: movies})
+        }
+        else {
+            res.send({status:404, error:true, message:'the movie <ID> does not exist'})
+        }
+    })
