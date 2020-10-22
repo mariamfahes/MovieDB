@@ -67,13 +67,10 @@ const movies = [
     { title: 'Jaws', year: 1975, rating: 8 },
     { title: 'Avatar', year: 2009, rating: 7.8 },
     {title: 'Brazil', year: 1985, rating: 8 },
-    {title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 },
-    {id:1, title: 'Jaws', year: 1975, rating: 8 },
-    {id:2, title: 'Avatar', year: 2009, rating: 7.8 },
-    {id:3,title: 'Brazil', year: 1985, rating: 8 },
-    {id:4,title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
-];
+    {title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
 
+];
+// sort
 app.get('/movies/read/by-date', function (req, res){
     movies.sort(function(a,b){
         return a.year - b.year;
@@ -93,5 +90,12 @@ app.get('/movies/read/by-title', function (req, res){
     res.send(movies);
 });
   // readone
+  app.get('/movies/read/id/:id',function(req,res){
+    if(req.params.id<=0 || req.params.id>movies.length)
+    res.status(404).send("error:true, message:the movie "+req.params.id+" does not exist");
+    else
+    res.send(movies[req.params.id-1]);
+
+  });
 
 
