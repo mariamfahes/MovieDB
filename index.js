@@ -67,9 +67,31 @@ const movies = [
     { title: 'Jaws', year: 1975, rating: 8 },
     { title: 'Avatar', year: 2009, rating: 7.8 },
     {title: 'Brazil', year: 1985, rating: 8 },
-    {title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
-    
+    {title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 },
+    {id:1, title: 'Jaws', year: 1975, rating: 8 },
+    {id:2, title: 'Avatar', year: 2009, rating: 7.8 },
+    {id:3,title: 'Brazil', year: 1985, rating: 8 },
+    {id:4,title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
 ];
 
+app.get('/movies/read/by-date', function (req, res){
+    movies.sort(function(a,b){
+        return a.year - b.year;
+    });
+    res.send(movies);
+});
+app.get('/movies/read/by-rating', function (req, res){
+    movies.sort(function(a,b){
+        return a.rating - b.rating;
+    });
+    res.send(movies);
+});
+app.get('/movies/read/by-title', function (req, res){
+    movies.sort(function(a,b){
+        return a.title.localeCompare(b.title);
+    });
+    res.send(movies);
+});
+  // readone
 
 
